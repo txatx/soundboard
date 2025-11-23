@@ -1,10 +1,10 @@
-.lm-form {
+.sb-form {
   display: flex;
   flex-direction: column;
   gap: spacing(1.25);
   width: 100%;
 
-  &.lm-form--small {
+  &.sb-form--small {
     max-width: 320px;
   }
 
@@ -42,12 +42,12 @@
       margin-right: 0;
     }
 
-    &.lm-label-grow .form-check-label {
+    &.sb-label-grow .form-check-label {
       flex-grow: 1;
     }
   }
 
-  .lm-input {
+  .sb-input {
     &.is-invalid {
       background-image: none;
       padding-right: 0.75rem;
@@ -59,7 +59,7 @@
     }
   }
 
-  .lm-password-input {
+  .sb-password-input {
     input {
       border-right: none;
     }

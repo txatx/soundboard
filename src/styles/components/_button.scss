@@ -9,7 +9,7 @@
 .btn.btn-link {
   text-decoration: none;
 
-  &.lm-btn-link-hoverable:hover {
+  &.sb-btn-link-hoverable:hover {
     --bs-btn-hover-bg: #{$gray-400};
     --bs-btn-hover-color: #{$primary};
   }
@@ -25,11 +25,4 @@
   --bs-btn-color: #{$white};
   --bs-btn-hover-color: #{$white};
   --bs-btn-active-color: #{$white};
-}
-
-.btn.btn-golden {
-  --bs-btn-color: #{$white};
-  --bs-btn-hover-color: #{$white};
-  --bs-btn-active-color: #{$white};
-  --bs-btn-disabled-color: #{$white};
 }

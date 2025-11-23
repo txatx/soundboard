@@ -1,11 +1,15 @@
 /* COLORS */
-$primary: #242424;
+$purple: #7d1fd1;
+$green: #50c06f;
+$yellow: #e6c351;
+$primary: $purple;
+$secondary: $green;
+$dark: #1a1633;
+$light: #c8c1f5;
 $success: #28a745;
 $warning: #cd9a01;
 $danger: #dc3545;
 $info: #137d8e;
-$golden: #a6892b;
-$yellow: #eec12e;
 $gray-100: #f7f7f7;
 $gray-200: #ededed;
 $gray-300: #d9d9d9;

@@ -1,4 +1,4 @@
-.lm-toast {
+.sb-toast {
   --bs-toast-border-radius: #{$toast-border-radius};
   --bs-toast-font-size: 13px;
 
@@ -21,7 +21,7 @@
     gap: spacing(0.75);
   }
 
-  .lm-toast__message {
+  .sb-toast__message {
     flex-grow: 1;
   }
 

@@ -1,6 +1,6 @@
 header {
-  background: linear-gradient(90deg, rgb(5 5 5 / 0.85) 0%, rgb(67 67 67 / 0.85) 49.52%, rgb(5 5 5 / 0.85) 100%);
-  border-radius: 0 0 $header-border-radius $header-border-radius;
+  background: darken($dark, 10%);
+  color: $white;
   display: flex;
   flex-shrink: 0;
   height: 70px;
@@ -8,7 +8,7 @@ header {
   width: 100%;
 }
 
-header .lm-header-content {
+header .sb-header-content {
   align-items: center;
   display: flex;
   flex-grow: 1;
