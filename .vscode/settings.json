@@ -1,0 +1,38 @@
+{
+  "[javascriptreact]": {
+    "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll.eslint"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll.eslint"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.codeActionsOnSave": ["source.fixAll.eslint"]
+  },
+  "[typescriptreact]": {
+    "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll.eslint"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll.eslint"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll.stylelint"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "css.validate": false,
+  "editor.formatOnSave": false,
+  "eslint.codeActionsOnSave.mode": "all",
+  "eslint.format.enable": true,
+  "eslint.validate": ["javascript", "javascriptreact", "json", "jsonc", "json5", "typescript", "typescriptreact"],
+  "files.eol": "\n",
+  "less.validate": false,
+  "scss.validate": false,
+  "stylelint.enable": true,
+  "stylelint.validate": [
+    "css",
+    "scss"
+  ]
+}
