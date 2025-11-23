@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# css
+/public/css/*.css
+/public/css/*.css.map

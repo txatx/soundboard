@@ -1,0 +1,7 @@
+**/*.min.css
+**/public/
+**/vendors/
+./templates/bootstrap/**
+**/*.js
+**/*.jsx
+**/*.json

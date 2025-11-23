@@ -1,0 +1,12 @@
+.offcanvas {
+  @include media-breakpoint-down(sm) {
+    --bs-offcanvas-width: 100vw;
+  }
+
+  background: linear-gradient(180deg, $gray-200 0%, $white 100%);
+
+  .offcanvas-title {
+    font-size: 24px;
+    font-weight: 600;
+  }
+}

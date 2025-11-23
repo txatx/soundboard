@@ -1,0 +1,10 @@
+.lm-content-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding-block: spacing(2);
+
+  @include media-breakpoint-up(md) {
+    padding-block: spacing(5);
+  }
+}

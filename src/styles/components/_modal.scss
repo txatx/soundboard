@@ -1,0 +1,16 @@
+.modal {
+  --bs-modal-header-padding: #{spacing(2)} #{spacing(2)} 0;
+  --bs-modal-padding: #{spacing(2)};
+  --bs-modal-header-border-width: 0;
+
+  .modal-header {
+    flex-direction: column-reverse;
+
+    .modal-title {
+      border-bottom: 1px solid $gray-200;
+      padding-bottom: spacing(1);
+      text-align: center;
+      width: 100%;
+    }
+  }
+}

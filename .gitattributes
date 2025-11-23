@@ -1,0 +1,20 @@
+# Definitively text files
+*.txt text
+*.js text eol=lf
+*.jsx text eol=lf
+*.php text eol=lf
+*.scss text eol=lf
+*.json text eol=lf
+*.svg text
+*.md text
+# Ensure those won't be messed up with
+*.jpg binary
+*.png binary
+*.ttf binary
+*.docx binary
+# Font formats
+*.otf binary
+*.eot binary
+*.woff binary
+*.woff2 binary
+*.xlsx filter=lfs diff=lfs merge=lfs -text

@@ -1,0 +1,41 @@
+.lm-toast {
+  --bs-toast-border-radius: #{$toast-border-radius};
+  --bs-toast-font-size: 13px;
+
+  font-weight: 700;
+
+  &.bg-danger,
+  &.bg-success,
+  &.bg-info {
+    --bs-toast-color: #{$white};
+  }
+
+  .bi {
+    --color: var(--bs-toast-color);
+  }
+
+  .toast-body {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: spacing(0.75);
+  }
+
+  .lm-toast__message {
+    flex-grow: 1;
+  }
+
+  .btn {
+    --bs-btn-active-border-color: var(--bs-toast-color);
+
+    border: none;
+    border-left: 1px solid var(--bs-toast-color);
+    border-radius: 0;
+    padding: 0 0 0 spacing(0.25);
+  }
+}
+
+/* TOAST CONTAINER */
+.toast-container {
+  position: fixed;
+}

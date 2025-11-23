@@ -1,0 +1,48 @@
+.lm-card {
+  --bs-card-border-color: #{$gray-200};
+
+  border: 0;
+  height: 100%;
+  min-width: 290px;
+
+  .card-header {
+    background-color: $gray-300;
+    border: 0;
+    font-size: 24px;
+    font-weight: 600;
+    padding: spacing(1) spacing(1.5);
+  }
+
+  .card-body {
+    border: var(--bs-card-border-width) solid var(--bs-card-border-color);
+    padding: spacing(1.5);
+  }
+
+  .card-footer {
+    background-color: transparent;
+    border: var(--bs-card-border-width) solid var(--bs-card-border-color);
+    border-radius: 0;
+    border-top: 0;
+    padding: spacing(0.5) spacing(1.5);
+  }
+}
+
+.lm-card--reserved {
+  .card-header {
+    background-color: $gray-100;
+  }
+}
+
+.lm-card--past {
+  .card-header {
+    background-color: $gray-100;
+  }
+
+  .card-body {
+    background-color: $gray-100;
+  }
+
+  .card-footer {
+    background-color: $gray-100;
+  }
+}

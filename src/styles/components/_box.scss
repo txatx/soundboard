@@ -1,0 +1,48 @@
+.lm-box {
+  background-color: $white;
+  border-radius: $box-border-radius;
+  display: flex;
+  flex-basis: content;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-x: auto;
+  padding: spacing(2);
+  width: 100%;
+}
+
+.lm-box.lm-box--small {
+  max-width: 360px;
+}
+
+.lm-box.lm-box--border {
+  border: 3px solid $gray-200;
+}
+
+.lm-box.lm-box--shadow {
+  box-shadow: 0 4px 16px 0 rgb(0 0 0 / 10%);
+}
+
+.lm-box.lm-box--full-height {
+  height: 75%;
+  max-height: 450px;
+}
+
+/* Header */
+.lm-box__header {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: spacing(1);
+  justify-content: space-between;
+  margin-bottom: spacing(1);
+  width: 100%;
+
+  h1 {
+    font-size: 40px;
+    font-weight: 700;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 24px;
+    }
+  }
+}

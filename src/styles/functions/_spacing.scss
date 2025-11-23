@@ -1,0 +1,7 @@
+@function spacing($size) {
+  @if type-of($size) == "number" {
+    @return $size * $spacer;
+  } @else {
+    @error "Invalid type for spacing: #{$size}. Expected number.";
+  }
+}

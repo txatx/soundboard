@@ -1,0 +1,12 @@
+/* stylelint-disable declaration-no-important */
+
+/* FLEX */
+.lm-flex-equal {
+  flex: 1 0 0 !important;
+}
+
+@for $i from 0 through 20 {
+  .lm-flex-gap-#{$i} {
+    gap: $spacer * $i * 0.25 !important; // Ajusta el multiplicador según tu escala
+  }
+}

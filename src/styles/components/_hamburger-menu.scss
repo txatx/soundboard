@@ -1,0 +1,44 @@
+.lm-hamburger-menu .offcanvas-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+
+  .lm-hamburger-menu__content {
+    border-top: 1px solid $gray-500;
+    display: flex;
+    flex-direction: column;
+
+    a {
+      display: block;
+      text-decoration: none;
+      width: 100%;
+    }
+
+    .btn {
+      --bs-border-color: #{$gray-500};
+      --bs-btn-padding-y: #{spacing(0.75)};
+
+      border-radius: 0;
+      font-weight: 400;
+      justify-content: start;
+    }
+  }
+
+  .lm-hamburger-menu__language-change {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    .btn {
+      justify-content: center;
+    }
+  }
+
+  .lm-hamburger-menu__footer {
+    display: flex;
+    flex-direction: column;
+    gap: spacing(1);
+    padding: var(--bs-offcanvas-padding-y) var(--bs-offcanvas-padding-x);
+  }
+}

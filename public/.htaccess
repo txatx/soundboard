@@ -1,0 +1,15 @@
+RewriteEngine on
+
+# Redirigir rutas que comienzan con /api a /api/public/api/index.php
+RewriteCond %{REQUEST_URI} ^/api [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^api/(.*)$ /api/public/api/index.php/$1 [L,NC,QSA]
+
+# Reescribir todo lo demás a index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
+
+# Ensure Authorization header is passed along
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

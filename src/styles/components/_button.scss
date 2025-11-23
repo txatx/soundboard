@@ -1,0 +1,35 @@
+.btn {
+  --bs-btn-font-weight: 700;
+
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.btn.btn-link {
+  text-decoration: none;
+
+  &.lm-btn-link-hoverable:hover {
+    --bs-btn-hover-bg: #{$gray-400};
+    --bs-btn-hover-color: #{$primary};
+  }
+}
+
+.btn.btn-link.btn-link--dark {
+  --bs-btn-color: #{$primary};
+  --bs-btn-hover-color: #{$primary};
+  --bs-btn-active-color: #{$primary};
+}
+
+.btn.btn-link.btn-link--light {
+  --bs-btn-color: #{$white};
+  --bs-btn-hover-color: #{$white};
+  --bs-btn-active-color: #{$white};
+}
+
+.btn.btn-golden {
+  --bs-btn-color: #{$white};
+  --bs-btn-hover-color: #{$white};
+  --bs-btn-active-color: #{$white};
+  --bs-btn-disabled-color: #{$white};
+}
