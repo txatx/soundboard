@@ -123,28 +123,32 @@ const BankItem = props => {
     >
       <div className="sb-bank-item__title">{file.name}</div>
       <div className="sb-bank-item__toolbar">
-        <div className="sb-bank-item__time" onClick={handleTimeClick}>
-          {formatedElapsedTime}
+        <div className="sb-bank-item__toolbar-buttons">
+          <div className="sb-bank-item__loop">
+            <Button
+              onClick={handleLoopClick}
+              size="sm"
+              variant={loopSetting === LOOP_SETTINGS.SINGLE ? "outline-light" : colorName}
+            >
+              <Icon color="white" icon="repeat" size={14} />
+            </Button>
+          </div>
         </div>
-        <Form.Range
-          color={colorName}
-          onChange={handleRangeChange}
-          onClick={handleNoClick}
-          style={{
-            "--range-thumb-color": `${colorRgb}`,
-            "--range-track-color": `${colorRgb}`,
-            "--range-thumb-size": "16px",
-            "--range-track-size": "4px"
-          }}
-        />
-        <div className="sb-bank-item__loop">
-          <Button
-            onClick={handleLoopClick}
-            size="sm"
-            variant={loopSetting === LOOP_SETTINGS.SINGLE ? "outline-light" : colorName}
-          >
-            <Icon color="white" icon="repeat" size={14} />
-          </Button>
+        <div className="sb-bank-item__toolbar-controls">
+          <div className="sb-bank-item__time" onClick={handleTimeClick}>
+            {formatedElapsedTime}
+          </div>
+          <Form.Range
+            color={colorName}
+            onChange={handleRangeChange}
+            onClick={handleNoClick}
+            style={{
+              "--range-thumb-color": `${colorRgb}`,
+              "--range-track-color": `${colorRgb}`,
+              "--range-thumb-size": "16px",
+              "--range-track-size": "4px"
+            }}
+          />
         </div>
       </div>
     </div>

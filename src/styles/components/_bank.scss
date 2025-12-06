@@ -15,7 +15,7 @@
 }
 
 .sb-bank-item {
-  --size: 170px;
+  --size: 180px;
 
   --progress-color: rgb(var(--color) / 0.2);
   --angle: calc(var(--progress) * 3.6deg);
@@ -42,17 +42,15 @@
   }
 
   &__toolbar {
-    align-items: center;
     display: flex;
+    flex-direction: column;
     gap: spacing(0.5);
-    justify-content: flex-end;
   }
 
-  &__time {
-    flex-shrink: 0;
-    font-size: 12px;
-    text-align: end;
-    width: 35px;
+  &__toolbar-buttons {
+    display: flex;
+    gap: spacing(0.5);
+    justify-content: end;
   }
 
   &__loop .btn {
@@ -62,5 +60,18 @@
     border-radius: 50%;
     height: var(--size);
     width: var(--size);
+  }
+
+  &__toolbar-controls {
+    align-items: center;
+    display: flex;
+    gap: spacing(0.5);
+  }
+
+  &__time {
+    flex-shrink: 0;
+    font-size: 12px;
+    text-align: end;
+    width: 35px;
   }
 }
