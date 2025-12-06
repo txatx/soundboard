@@ -1,19 +1,36 @@
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 
-import { getFileList } from "utils/storage";
+import { getIsPermissionGranted, getIsWorkingDirectorySet, setWorkingDirectory } from "utils/db";
 
 const PageHeader = props => {
+  const [isWorkingDirectorySet, setIsWorkingDirectorySet] = useState(false);
+  const [isPermissionGranted, setIsPermissionGranted] = useState(false);
+
+  useEffect(() => {
+    async function checkWorkingDirectory() {
+      const isDirectorySet = await getIsWorkingDirectorySet();
+      const isPermission = await getIsPermissionGranted();
+      setIsWorkingDirectorySet(isDirectorySet);
+      setIsPermissionGranted(isPermission);
+    }
+
+    checkWorkingDirectory();
+  }, []);
+
   async function handleImportClick() {
-    const fileList = await getFileList();
+    await setWorkingDirectory();
   }
+
+  const buttonColor = !isWorkingDirectorySet ? "danger" : !isPermissionGranted ? "warning" : "primary";
 
   return (
     <header>
       <div className="sb-header-content">
         <h1>Soundboard</h1>
-        <Button onClick={handleImportClick} variant="primary">
-          Importar
+        <Button onClick={handleImportClick} variant={buttonColor}>
+          Cambiar directorio de trabajo
         </Button>
       </div>
     </header>

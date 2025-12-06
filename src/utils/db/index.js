@@ -7,6 +7,22 @@ db.version(1).stores({
   settings: "key"
 });
 
+export async function getIsWorkingDirectorySet() {
+  const workDir = await db.settings.get(WORKDIR_KEY);
+  return !!workDir;
+}
+
+export async function getIsPermissionGranted() {
+  const workDir = await db.settings.get(WORKDIR_KEY);
+
+  if (workDir) {
+    const permission = await workDir.handle.requestPermission({ mode: "readwrite" });
+    return permission === "granted";
+  } else {
+    return false;
+  }
+}
+
 export async function getWorkingDirectory() {
   const workDir = await db.settings.get(WORKDIR_KEY);
 
@@ -23,11 +39,13 @@ export async function getWorkingDirectory() {
   }
 }
 
-async function setWorkingDirectory() {
+export async function setWorkingDirectory() {
   const dirHandle = await window.showDirectoryPicker();
   await db.settings.put({
     key: WORKDIR_KEY,
     handle: dirHandle
   });
-  return dirHandle;
+  await dirHandle.requestPermission({ mode: "readwrite" });
+
+  window.location.reload();
 }
