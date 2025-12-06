@@ -1,14 +1,21 @@
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
 import { BANK } from "app_constants";
 import { useAudio } from "utils/audio/hooks";
 import { getCssColor, getHexToRgb } from "utils/css";
 
+import Icon from "./Icon";
+
 const TIME_FORMATS = {
   ELAPSED: "ELAPSED",
   REMAINING: "REMAINING"
+};
+
+const LOOP_SETTINGS = {
+  SINGLE: "SINGLE",
+  LOOP: "LOOP"
 };
 
 const BankItem = props => {
@@ -17,10 +24,11 @@ const BankItem = props => {
   const [progress, setProgress] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [timeFormat, setTimeFormat] = useState(TIME_FORMATS.ELAPSED);
+  const [loopSetting, setLoopSetting] = useState(LOOP_SETTINGS.SINGLE);
   const progressRef = useRef();
 
   useEffect(() => {
-    if (progress >= 100) {
+    if (loopSetting === LOOP_SETTINGS.SINGLE && progress >= 100) {
       resetProgress();
     }
   }, [progress]);
@@ -42,6 +50,18 @@ const BankItem = props => {
     return `${timeToShow < 0 ? "-" : " "}${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   }
 
+  function startProgress() {
+    const duration = getDuration();
+    const refreshRate = 30; // in ms
+    const totalTicks = duration * 1000 / refreshRate;
+    const progressIncrement = 100 / totalTicks;
+
+    progressRef.current = setInterval(() => {
+      setElapsedTime(getElapsedTime());
+      setProgress(prev => (prev >= 100 ? 0 : prev + progressIncrement));
+    }, 30);
+  }
+
   function resetProgress() {
     clearInterval(progressRef.current);
     progressRef.current = null;
@@ -57,16 +77,7 @@ const BankItem = props => {
       resetProgress();
       return;
     } else {
-      const duration = getDuration();
-      const refreshRate = 30; // in ms
-      const totalTicks = duration * 1000 / refreshRate;
-      const progressIncrement = 100 / totalTicks;
-
-      progressRef.current = setInterval(() => {
-        setElapsedTime(getElapsedTime());
-        setProgress(prev => (prev >= 100 ? 0 : prev + progressIncrement));
-      }, 30);
-
+      startProgress();
       play();
     }
   }
@@ -80,6 +91,14 @@ const BankItem = props => {
     ev.stopPropagation();
     const value = ev.target.value;
     setVolume(value / 100);
+  }
+
+  function handleLoopClick(ev) {
+    ev.stopPropagation();
+    const isLooping = loopSetting === LOOP_SETTINGS.LOOP;
+
+    setLoopSetting(isLooping ? LOOP_SETTINGS.SINGLE : LOOP_SETTINGS.LOOP);
+    setLoop(!isLooping);
   }
 
   function handleNoClick(ev) {
@@ -118,6 +137,15 @@ const BankItem = props => {
             "--range-track-size": "4px"
           }}
         />
+        <div className="sb-bank-item__loop">
+          <Button
+            onClick={handleLoopClick}
+            size="sm"
+            variant={loopSetting === LOOP_SETTINGS.SINGLE ? "outline-light" : colorName}
+          >
+            <Icon color="white" icon="repeat" size={14} />
+          </Button>
+        </div>
       </div>
     </div>
   );
