@@ -61,7 +61,8 @@ export function useAudio(file, options = {}) {
       setVolume: v => soundRef.current?.setVolume(v),
       setLoop: loop => soundRef.current?.setLoop(loop),
       getIsPlaying: () => soundRef.current?.getIsPlaying() ?? false,
-      getDuration: () => soundRef.current?.getDuration() ?? 0
+      getDuration: () => soundRef.current?.getDuration() ?? 0,
+      getElapsedTime: () => soundRef.current?.getElapsedTime() ?? 0
     };
   }, [loaded]);
 

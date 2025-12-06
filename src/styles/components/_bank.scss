@@ -43,7 +43,16 @@
   }
 
   &__toolbar {
+    align-items: center;
     display: flex;
     justify-content: flex-end;
+  }
+
+  &__time {
+    flex-shrink: 0;
+    font-size: 12px;
+    margin-right: spacing(0.5);
+    text-align: end;
+    width: 35px;
   }
 }

@@ -27,6 +27,7 @@ export function createSound(buffer) {
 
   let currentSource = null;
   let currentLoop = false;
+  let startTime = 0;
 
   function play() {
     if (currentSource) {
@@ -40,6 +41,7 @@ export function createSound(buffer) {
     source.connect(gainNode);
     source.start();
     currentSource = source;
+    startTime = ctx.currentTime;
 
     source.onended = () => {
       if (currentSource === source) {
@@ -75,12 +77,26 @@ export function createSound(buffer) {
     return buffer.duration;
   }
 
+  function getElapsedTime() {
+    if (startTime === null) {
+      return 0;
+    }
+
+    const elapsed = ctx.currentTime - startTime;
+    if (currentLoop) {
+      return elapsed % buffer.duration;
+    } else {
+      return Math.min(elapsed, buffer.duration);
+    }
+  }
+
   return {
     play,
     stop,
     setVolume,
     setLoop,
     getIsPlaying,
-    getDuration
+    getDuration,
+    getElapsedTime
   };
 }
