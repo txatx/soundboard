@@ -4,6 +4,8 @@ import { Button } from "react-bootstrap";
 
 import { getIsPermissionGranted, getIsWorkingDirectorySet, setWorkingDirectory } from "utils/db";
 
+import Icon from "./Icon";
+
 const PageHeader = props => {
   const [isWorkingDirectorySet, setIsWorkingDirectorySet] = useState(false);
   const [isPermissionGranted, setIsPermissionGranted] = useState(false);
@@ -30,6 +32,7 @@ const PageHeader = props => {
       <div className="sb-header-content">
         <h1>Soundboard</h1>
         <Button onClick={handleImportClick} variant={buttonColor}>
+          <Icon className="me-2" icon="folder-open" size={16} />
           Cambiar directorio de trabajo
         </Button>
       </div>

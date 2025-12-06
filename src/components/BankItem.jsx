@@ -25,6 +25,8 @@ const BankItem = props => {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [timeFormat, setTimeFormat] = useState(TIME_FORMATS.ELAPSED);
   const [loopSetting, setLoopSetting] = useState(LOOP_SETTINGS.SINGLE);
+  const [isFadeIn, setIsFadeIn] = useState(false);
+  const [isFadeOut, setIsFadeOut] = useState(false);
   const progressRef = useRef();
 
   useEffect(() => {
@@ -56,9 +58,22 @@ const BankItem = props => {
     const totalTicks = duration * 1000 / refreshRate;
     const progressIncrement = 100 / totalTicks;
 
+    const fadeDuration = 5;
+
     progressRef.current = setInterval(() => {
-      setElapsedTime(getElapsedTime());
+      const elapsed = getElapsedTime();
+      setElapsedTime(elapsed);
       setProgress(prev => (prev >= 100 ? 0 : prev + progressIncrement));
+
+      if (isFadeIn && elapsed <= fadeDuration) {
+        const volume = elapsed / fadeDuration;
+        setVolume(volume);
+      }
+
+      if (isFadeOut && duration - elapsed <= fadeDuration) {
+        const volume = (duration - elapsed) / fadeDuration;
+        setVolume(volume);
+      }
     }, 30);
   }
 
@@ -101,6 +116,16 @@ const BankItem = props => {
     setLoop(!isLooping);
   }
 
+  function handleFadeInClick(ev) {
+    ev.stopPropagation();
+    setIsFadeIn(prev => !prev);
+  }
+
+  function handleFadeOutClick(ev) {
+    ev.stopPropagation();
+    setIsFadeOut(prev => !prev);
+  }
+
   function handleNoClick(ev) {
     ev.stopPropagation();
     ev.preventDefault();
@@ -124,15 +149,19 @@ const BankItem = props => {
       <div className="sb-bank-item__title">{file.name}</div>
       <div className="sb-bank-item__toolbar">
         <div className="sb-bank-item__toolbar-buttons">
-          <div className="sb-bank-item__loop">
-            <Button
-              onClick={handleLoopClick}
-              size="sm"
-              variant={loopSetting === LOOP_SETTINGS.SINGLE ? "outline-light" : colorName}
-            >
-              <Icon color="white" icon="repeat" size={14} />
-            </Button>
-          </div>
+          <Button onClick={handleFadeInClick} size="sm" variant={isFadeIn ? colorName : "outline-light"}>
+            <Icon color="secondary" icon="arrow-trend-up" size={14} />
+          </Button>
+          <Button onClick={handleFadeOutClick} size="sm" variant={isFadeOut ? colorName : "outline-light"}>
+            <Icon color="secondary" icon="arrow-trend-down" size={14} />
+          </Button>
+          <Button
+            onClick={handleLoopClick}
+            size="sm"
+            variant={loopSetting === LOOP_SETTINGS.SINGLE ? "outline-light" : colorName}
+          >
+            <Icon color="secondary" icon="repeat" size={14} />
+          </Button>
         </div>
         <div className="sb-bank-item__toolbar-controls">
           <div className="sb-bank-item__time" onClick={handleTimeClick}>
