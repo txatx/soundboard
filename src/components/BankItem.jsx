@@ -20,11 +20,11 @@ const LOOP_SETTINGS = {
 
 const BankItem = props => {
   const { file } = props;
-  const { getDuration, getElapsedTime, getIsPlaying, isPlaying, play, setLoop, setVolume, stop } = useAudio(file);
+  const { getDuration, getElapsedTime, getIsPlaying, play, setLoop, setVolume, stop } = useAudio(file);
   const [progress, setProgress] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [timeFormat, setTimeFormat] = useState(TIME_FORMATS.ELAPSED);
-  const [loopSetting, setLoopSetting] = useState(LOOP_SETTINGS.SINGLE);
+  const [loopSetting, setLoopSetting] = useState(file.loop ? LOOP_SETTINGS.LOOP : LOOP_SETTINGS.SINGLE);
   const [isFadeIn, setIsFadeIn] = useState(false);
   const [isFadeOut, setIsFadeOut] = useState(false);
   const progressRef = useRef();
@@ -169,6 +169,7 @@ const BankItem = props => {
           </div>
           <Form.Range
             color={colorName}
+            defaultValue={file.volume * 100}
             onChange={handleRangeChange}
             onClick={handleNoClick}
             style={{

@@ -22,7 +22,7 @@ export function setMasterVolume(value) {
 export function createSound(buffer) {
   const ctx = ensureAudioContext();
   const gainNode = ctx.createGain();
-  gainNode.gain.value = 1; // initial volume per sound
+  gainNode.gain.value = 0; // initial volume per sound
   gainNode.connect(masterGain);
 
   let currentSource = null;

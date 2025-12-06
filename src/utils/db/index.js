@@ -2,6 +2,7 @@ import Dexie from "dexie";
 
 const db = new Dexie("SoundboardDB");
 const WORKDIR_KEY = "workingDirectory";
+const SOUNDS = "sounds";
 
 db.version(1).stores({
   settings: "key"
@@ -48,4 +49,25 @@ export async function setWorkingDirectory() {
   await dirHandle.requestPermission({ mode: "readwrite" });
 
   window.location.reload();
+}
+
+export async function getStoredSounds() {
+  return await db.settings.get(SOUNDS) || [];
+}
+
+export async function setStoredSounds(sounds) {
+  await db.settings.put({
+    key: SOUNDS,
+    sounds
+  });
+}
+
+export async function setStoredSoundProperty(soundId, property, value) {
+  const { sounds: storedSounds } = await getStoredSounds();
+  const soundIndex = storedSounds.findIndex(sound => sound.id === soundId);
+
+  if (soundIndex !== -1) {
+    storedSounds[soundIndex][property] = value;
+    await setStoredSounds(storedSounds);
+  }
 }

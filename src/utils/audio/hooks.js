@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
+import { setStoredSoundProperty } from "utils/db";
+
 import { createSound, setMasterVolume } from "./audioEngine";
 
-export function useAudio(file, options = {}) {
+export function useAudio(file) {
   const [loaded, setLoaded] = useState(false);
   const soundRef = useRef(null);
 
@@ -31,11 +33,11 @@ export function useAudio(file, options = {}) {
 
       const sound = createSound(buffer);
 
-      if (options.initialVolume != null) {
-        sound.setVolume(options.initialVolume);
+      if (file.volume != null) {
+        sound.setVolume(file.volume);
       }
-      if (options.initialLoop != null) {
-        sound.setLoop(options.initialLoop);
+      if (file.loop != null) {
+        sound.setLoop(file.loop);
       }
 
       soundRef.current = sound;
@@ -51,18 +53,48 @@ export function useAudio(file, options = {}) {
         soundRef.current = null;
       }
     };
-  }, [file, options.initialLoop, options.initialVolume]);
+  }, [file]);
+
+  function play() {
+    soundRef.current?.play();
+  }
+
+  function stop() {
+    soundRef.current?.stop();
+  }
+
+  function setVolume(v) {
+    soundRef.current?.setVolume(v);
+    setStoredSoundProperty(file.id, "volume", v);
+  }
+
+  function setLoop(loop) {
+    soundRef.current?.setLoop(loop);
+    setStoredSoundProperty(file.id, "loop", loop);
+  }
+
+  function getIsPlaying() {
+    return soundRef.current?.getIsPlaying() ?? false;
+  }
+
+  function getDuration() {
+    return soundRef.current?.getDuration() ?? 0;
+  }
+
+  function getElapsedTime() {
+    return soundRef.current?.getElapsedTime() ?? 0;
+  }
 
   const api = useMemo(() => {
     return {
       loaded,
-      play: () => soundRef.current?.play(),
-      stop: () => soundRef.current?.stop(),
-      setVolume: v => soundRef.current?.setVolume(v),
-      setLoop: loop => soundRef.current?.setLoop(loop),
-      getIsPlaying: () => soundRef.current?.getIsPlaying() ?? false,
-      getDuration: () => soundRef.current?.getDuration() ?? 0,
-      getElapsedTime: () => soundRef.current?.getElapsedTime() ?? 0
+      play,
+      stop,
+      setVolume,
+      setLoop,
+      getIsPlaying,
+      getDuration,
+      getElapsedTime
     };
   }, [loaded]);
 
