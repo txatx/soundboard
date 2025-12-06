@@ -1,0 +1,17 @@
+.form-range::-webkit-slider-thumb {
+  background-color: rgb(var(--range-thumb-color));
+  height: var(--range-thumb-size);
+  margin-top: calc((var(--range-thumb-size) - var(--range-track-size)) / 2 * -1);
+  transition: all 0.2s ease;
+  width: var(--range-thumb-size);
+
+  &:active {
+    background-color: rgb(var(--range-thumb-color));
+    transform: scale(1.2);
+  }
+}
+
+.form-range::-webkit-slider-runnable-track {
+  background-color: rgb(var(--range-track-color) / 0.5);
+  height: var(--range-track-size);
+}

@@ -1,5 +1,12 @@
 .sb-bank {
   display: flex;
+  flex-direction: column;
+  gap: spacing(1);
+}
+
+.sb-bank-title {
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .sb-bank-items {
@@ -8,16 +15,14 @@
 }
 
 .sb-bank-item {
-  $transparentized: transparentize($primary, 0.8);
-
   --size: 170px;
-  --color: #{$primary};
-  --progress-color: #{$transparentized};
-  --progress: 30;
+
+  // $transparentized: transparentize(var(--color), 0.8);
+  --progress-color: rgb(var(--color) / 0.2);
   --angle: calc(var(--progress) * 3.6deg);
 
   background: conic-gradient(var(--progress-color) 0deg var(--angle), transparent var(--angle) 360deg);
-  border: 2px solid var(--color);
+  border: 2px solid rgb(var(--color));
   border-radius: 10px;
   cursor: pointer;
   display: flex;
@@ -29,11 +34,16 @@
   width: var(--size);
 
   &:hover {
-    box-shadow: 0 0 20px var(--color);
+    box-shadow: 0 0 20px rgb(var(--color));
   }
 
   &__title {
     font-weight: 700;
-    text-align: center;
+    overflow-wrap: break-word;
+  }
+
+  &__toolbar {
+    display: flex;
+    justify-content: flex-end;
   }
 }
