@@ -8,29 +8,31 @@ import { getCssColor, getHexToRgb } from "utils/css";
 
 import Icon from "./Icon";
 
-const TIME_FORMATS = {
-  ELAPSED: "ELAPSED",
-  REMAINING: "REMAINING"
-};
-
-const LOOP_SETTINGS = {
-  SINGLE: "SINGLE",
-  LOOP: "LOOP"
-};
-
 const BankItem = props => {
   const { file } = props;
-  const { getDuration, getElapsedTime, getIsPlaying, play, setLoop, setVolume, stop } = useAudio(file);
+  const {
+    getDuration,
+    getElapsedTime,
+    getIsPlaying,
+    isFadeIn,
+    isFadeOut,
+    loop,
+    play,
+    setFadeIn,
+    setFadeOut,
+    setLoop,
+    setTimeFormat,
+    setVolume,
+    stop,
+    timeFormat,
+    volume
+  } = useAudio(file);
   const [progress, setProgress] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
-  const [timeFormat, setTimeFormat] = useState(TIME_FORMATS.ELAPSED);
-  const [loopSetting, setLoopSetting] = useState(file.loop ? LOOP_SETTINGS.LOOP : LOOP_SETTINGS.SINGLE);
-  const [isFadeIn, setIsFadeIn] = useState(false);
-  const [isFadeOut, setIsFadeOut] = useState(false);
   const progressRef = useRef();
 
   useEffect(() => {
-    if (loopSetting === LOOP_SETTINGS.SINGLE && progress >= 100) {
+    if (loop === BANK.LOOP_SETTINGS.NONE && progress >= 100) {
       resetProgress();
     }
   }, [progress]);
@@ -40,7 +42,7 @@ const BankItem = props => {
     const elapsed = elapsedTime;
 
     let timeToShow;
-    if (timeFormat === TIME_FORMATS.ELAPSED) {
+    if (timeFormat === BANK.TIME_FORMATS.ELAPSED) {
       timeToShow = elapsed;
     } else {
       timeToShow = -duration + elapsed;
@@ -58,22 +60,10 @@ const BankItem = props => {
     const totalTicks = duration * 1000 / refreshRate;
     const progressIncrement = 100 / totalTicks;
 
-    const fadeDuration = 5;
-
     progressRef.current = setInterval(() => {
       const elapsed = getElapsedTime();
       setElapsedTime(elapsed);
       setProgress(prev => (prev >= 100 ? 0 : prev + progressIncrement));
-
-      if (isFadeIn && elapsed <= fadeDuration) {
-        const volume = elapsed / fadeDuration;
-        setVolume(volume);
-      }
-
-      if (isFadeOut && duration - elapsed <= fadeDuration) {
-        const volume = (duration - elapsed) / fadeDuration;
-        setVolume(volume);
-      }
     }, 30);
   }
 
@@ -99,7 +89,9 @@ const BankItem = props => {
 
   function handleTimeClick(ev) {
     ev.stopPropagation();
-    setTimeFormat(prev => (prev === TIME_FORMATS.ELAPSED ? TIME_FORMATS.REMAINING : TIME_FORMATS.ELAPSED));
+    const newTimeFormat =
+      timeFormat === BANK.TIME_FORMATS.ELAPSED ? BANK.TIME_FORMATS.REMAINING : BANK.TIME_FORMATS.ELAPSED;
+    setTimeFormat(newTimeFormat);
   }
 
   function handleRangeChange(ev) {
@@ -110,20 +102,19 @@ const BankItem = props => {
 
   function handleLoopClick(ev) {
     ev.stopPropagation();
-    const isLooping = loopSetting === LOOP_SETTINGS.LOOP;
-
-    setLoopSetting(isLooping ? LOOP_SETTINGS.SINGLE : LOOP_SETTINGS.LOOP);
-    setLoop(!isLooping);
+    const isLooping = loop === BANK.LOOP_SETTINGS.LOOP;
+    const newSetting = isLooping ? BANK.LOOP_SETTINGS.NONE : BANK.LOOP_SETTINGS.LOOP;
+    setLoop(newSetting);
   }
 
   function handleFadeInClick(ev) {
     ev.stopPropagation();
-    setIsFadeIn(prev => !prev);
+    setFadeIn(!isFadeIn);
   }
 
   function handleFadeOutClick(ev) {
     ev.stopPropagation();
-    setIsFadeOut(prev => !prev);
+    setFadeOut(!isFadeOut);
   }
 
   function handleNoClick(ev) {
@@ -160,7 +151,7 @@ const BankItem = props => {
           <Button
             onClick={handleLoopClick}
             size="sm"
-            variant={loopSetting === LOOP_SETTINGS.SINGLE ? "outline-light" : colorName}
+            variant={loop === BANK.LOOP_SETTINGS.NONE ? "outline-light" : colorName}
           >
             <Icon color="secondary" icon="repeat" size={14} />
           </Button>
@@ -171,7 +162,6 @@ const BankItem = props => {
           </div>
           <Form.Range
             color={colorName}
-            defaultValue={file.volume * 100}
             onChange={handleRangeChange}
             onClick={handleNoClick}
             style={{
@@ -180,6 +170,7 @@ const BankItem = props => {
               "--range-thumb-size": "16px",
               "--range-track-size": "4px"
             }}
+            value={volume * 100}
           />
         </div>
       </div>
