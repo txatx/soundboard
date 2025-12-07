@@ -131,6 +131,8 @@ const BankItem = props => {
     ev.preventDefault();
   }
 
+  const formatedName = file.name.replace(/\..*/, "");
+
   const colorName = BANK.SOUND_TYPES_COLORS[file.type];
   const colorHex = getCssColor(colorName);
   const colorRgb = getHexToRgb(colorHex);
@@ -146,7 +148,7 @@ const BankItem = props => {
         "--color": `${colorRgb}`
       }}
     >
-      <div className="sb-bank-item__title">{file.name}</div>
+      <div className="sb-bank-item__title">{formatedName}</div>
       <div className="sb-bank-item__toolbar">
         <div className="sb-bank-item__toolbar-buttons">
           <Button onClick={handleFadeInClick} size="sm" variant={isFadeIn ? colorName : "outline-light"}>
